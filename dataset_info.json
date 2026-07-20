@@ -1,0 +1,38 @@
+{
+    "dataset_overview": {
+        "source_directory": "./kaggle_mnist",
+        "total_training_samples": 60000,
+        "total_testing_samples": 10000,
+        "raw_data_type": "uint8"
+    },
+    "training_set_characteristics": {
+        "image_dimensions": [
+            28,
+            28
+        ],
+        "pixel_value_min": 0,
+        "pixel_value_max": 255,
+        "label_array_length": 60000,
+        "unique_classes_found": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+        ]
+    },
+    "testing_set_characteristics": {
+        "image_dimensions": [
+            28,
+            28
+        ],
+        "pixel_value_min": 0,
+        "pixel_value_max": 255,
+        "label_array_length": 10000
+    }
+}
