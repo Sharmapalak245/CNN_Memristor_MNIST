@@ -10,7 +10,9 @@ from MNSIM.Hardware_Model import *
 from MNSIM.Hardware_Model.Crossbar import crossbar
 from MNSIM.Interface.interface import *
 
-def weight_update(SimConfig_path, weight, is_SAF=0, is_Variation=0, is_Rratio=0):
+def weight_update(SimConfig_path, weight, is_SAF=0, is_Variation=0, is_Rratio=0, seed=42):
+    # Fix seed for reproducible SAF/variation placement
+    np.random.seed(seed)
     # print("Hardware config file is loaded:", SimConfig_path)
     wu_config = cp.ConfigParser()
     wu_config.read(SimConfig_path, encoding='UTF-8')

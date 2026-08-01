@@ -90,6 +90,8 @@ class TrainTestInterface(object):
             num_classes = 100
         elif dataset_module.endswith('Imagenet'):
             num_classes = 1000
+        elif dataset_module.endswith('mnist'):        
+            num_classes = 10
         else:
             assert 0, f'unknown dataset'
             # add num_classes manually when introducing new datasets
@@ -98,7 +100,7 @@ class TrainTestInterface(object):
             self.hardware_config['ADC_quantize_bit'] = extra_define['adc_res']
             self.hardware_config['xbar_size'] = extra_define['xbar_size']
         self.net = import_module('MNSIM.Interface.network').get_net(self.hardware_config, cate = self.network_module, num_classes = num_classes)
-        if weights_file is not None:
+        if weights_file is not None and weights_file != "":
             print(f'load weights from {weights_file}')
             # load weights and split weights according to HW parameters
             #linqiushi modified
@@ -113,7 +115,7 @@ class TrainTestInterface(object):
         test_total = 0
         with torch.no_grad():
             for i, (images, labels) in enumerate(self.test_loader):
-                if i > 10:
+                if i > 999:
                     break
                 images = images.to(self.device)
                 test_total += labels.size(0)
@@ -139,7 +141,7 @@ class TrainTestInterface(object):
         test_total = 0
         with torch.no_grad():
             for i, (images, labels) in enumerate(self.test_loader):
-                if i > 10:
+                if i > 999:
                     break
                 images = images.to(self.device)
                 test_total += labels.size(0)

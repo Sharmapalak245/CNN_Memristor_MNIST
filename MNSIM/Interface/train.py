@@ -37,8 +37,8 @@ def train_net(net, train_loader, test_loader, device, prefix):
     global tensorboard_writer
     tensorboard_writer = SummaryWriter(log_dir = os.path.join(os.path.dirname(__file__), f'runs/{prefix}'))
     # set net on gpu
-    device_ids=[0,1,2,3,4,5,6]
-    net=torch.nn.DataParallel(net,device_ids=device_ids)
+    if torch.cuda.device_count() > 1:
+     net = torch.nn.DataParallel(net)
     net.to(device)
     
     # loss and optimizer

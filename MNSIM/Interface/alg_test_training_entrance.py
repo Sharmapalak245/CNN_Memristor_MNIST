@@ -42,6 +42,8 @@ elif args.dataset.endswith('cifar100'):
     num_classes = 100
 elif args.dataset.endswith('Imagenet'):
     num_classes=1000
+elif args.dataset.endswith('mnist'):        
+    num_classes = 10
 else:
     assert 0, f'unknown dataset'
 
@@ -50,8 +52,14 @@ net = net_module.get_net(cate = args.net, num_classes = num_classes)
 # train
 train_module = import_module(f'MNSIM.Interface.{args.train}')
 device = torch.device(f'cuda:{args.gpu}' if torch.cuda.is_available() else 'cpu')
-print(torch.cuda.get_device_properties(1).total_memory)
-print(torch.cuda.memory_allocated(1))
+
+# Dynamic GPU Memory Stats Check (Fixes the hardcoded GPU index bug)
+if device.type == 'cuda':
+    print(f"Total GPU Memory: {torch.cuda.get_device_properties(device).total_memory / 1024**2:.2f} MB")
+    print(f"Allocated GPU Memory: {torch.cuda.memory_allocated(device) / 1024**2:.2f} MB")
+else:
+    print("Running on CPU mode")
+
 print(f'run on device {device}')
 # weights
 if args.weight is not None:

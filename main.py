@@ -72,7 +72,7 @@ def main():
     mapping_start_time = time.time()
     
     #cifar10/cifar100/Imagenet
-    __TestInterface = TrainTestInterface(network_module=args.NN, dataset_module='MNSIM.Interface.cifar10',  
+    __TestInterface = TrainTestInterface(network_module=args.NN, dataset_module='MNSIM.Interface.mnist',  
         SimConfig_path=args.hardware_description, weights_file=args.weights, device=args.device)
    
     structure_file = __TestInterface.get_structure()
